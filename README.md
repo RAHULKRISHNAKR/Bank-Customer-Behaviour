@@ -1,0 +1,2 @@
+# Bank-Customer-Behaviour
+KTU S5 DATA ANALYTICS LAB MICRO PROJECT
