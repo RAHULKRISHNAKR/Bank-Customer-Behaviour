@@ -1,8 +1,5 @@
 # Bank-Customer-Behaviour
 ## KTU S5 DATA ANALYTICS LAB MICRO PROJECT
-
-Here’s a professional `README.md` file you can use for your GitHub repository:
-
 ---
 
 # Machine Learning Model Comparison for Bank Marketing Dataset
