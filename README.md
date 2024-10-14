@@ -109,3 +109,30 @@ print("Selected Features (Chi-Square):\n", X.columns[selector.get_support()])
 X_train, X_test, y_train, y_test = train_test_split(X_selected, y, test_size=0.3, random_state=42)
 ```
 This partial code prepares the data for training models but does not yet include model training or evaluation.
+
+```python
+Missing Values:
+ age          0
+job          0
+marital      0
+education    0
+default      0
+balance      0
+housing      0
+loan         0
+contact      0
+day          0
+month        0
+duration     0
+campaign     0
+pdays        0
+previous     0
+poutcome     0
+y            0
+dtype: int64
+Selected Features (Chi-Square):
+ Index(['duration', 'job_retired', 'loan_yes', 'contact_unknown', 'month_dec',
+       'month_mar', 'month_oct', 'month_sep', 'poutcome_success',
+       'poutcome_unknown'],
+      dtype='object')
+```
