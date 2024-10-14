@@ -82,4 +82,30 @@ This step is crucial because it helps us evaluate how well the model generalizes
 - **Feature selection**: Using the Chi-Square test to select the most important features for model training.
 - **Train-test split**: Dividing the dataset into training and testing sets for evaluation.
 
+```python
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.feature_selection import SelectKBest, chi2
+
+data = pd.read_csv("bank_sample_2000.csv")
+
+print("Missing Values:\n", data.isnull().sum())
+
+numerical_features = ['age', 'balance', 'day', 'duration', 'campaign', 'pdays', 'previous']
+scaler = MinMaxScaler()
+data[numerical_features] = scaler.fit_transform(data[numerical_features])
+
+data_encoded = pd.get_dummies(data, drop_first=True)
+
+X = data_encoded.drop("y_yes", axis=1)  # Target column is 'y_yes'
+y = data_encoded["y_yes"]
+
+selector = SelectKBest(score_func=chi2, k=10)
+X_selected = selector.fit_transform(X, y)
+print("Selected Features (Chi-Square):\n", X.columns[selector.get_support()])
+
+X_train, X_test, y_train, y_test = train_test_split(X_selected, y, test_size=0.3, random_state=42)
+```
 This partial code prepares the data for training models but does not yet include model training or evaluation.
