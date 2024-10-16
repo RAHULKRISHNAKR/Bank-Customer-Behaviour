@@ -75,30 +75,9 @@ We evaluated the models using several key performance metrics:
 
 ## Results
 
-### Selected Features (Chi-Square Test)
 
-The top 10 features selected by the Chi-Square test are:
 
-- `duration`, `job_retired`, `loan_yes`, `contact_unknown`, `month_dec`, `month_mar`, `month_oct`, `month_sep`, `poutcome_success`, `poutcome_unknown`
-
-### Model Performance
-
-| Model               | Accuracy (%) | MCC  |
-|-------------------- |--------------|------|
-| **Random Forest**   | 87.67        | 0.27 |
-| **Gradient Boosting** | 90.67        | 0.37 |
-| **SVM**             | 90.67        | 0.24 |
-| **k-NN**            | 90.17        | 0.39 |
-
-- **Random Forest** had an accuracy of 87.67% but struggled with predicting the minority class (`y_yes`).
-- **Gradient Boosting** performed better, with an accuracy of 90.67% and improved Matthews correlation.
-- **SVM** achieved high accuracy but had lower performance in predicting positive samples (`y_yes`).
-- **k-NN** had a good balance of accuracy (90.17%) and MCC (0.39).
-
-## Confusion Matrices and ROC Curves
-
-The confusion matrices and ROC curves for each model can be found in the output plots, providing insights into how well each model balances sensitivity and specificity.
-
+---
 ## Installation and Usage
 
 ### Prerequisites
