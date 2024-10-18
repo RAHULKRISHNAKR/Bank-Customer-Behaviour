@@ -122,10 +122,6 @@ The script will load the dataset, preprocess the data, perform feature selection
 - Gradient Boosting and k-NN models showed the best balance between accuracy and MCC, with Gradient Boosting slightly outperforming k-NN in most cases.
 - Random Forest and SVM performed well, but their prediction ability for the minority class was relatively weaker.
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## Contact
 
 If you have any questions or suggestions, feel free to open an issue or contact me via email at [rahulkridhna@gmail.com](mailto:rahulkridhna.gmail.com).
