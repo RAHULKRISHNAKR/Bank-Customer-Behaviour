@@ -1,129 +1,129 @@
 # Bank-Customer-Behaviour
-## KTU S5 DATA ANALYTICS LAB MICRO PROJECT
----
 
-# Machine Learning Model Comparison for Bank Marketing Dataset
-
-## Project Overview
-
-This project aims to evaluate and compare the performance of several machine learning models in predicting whether customers will subscribe to a term deposit based on the **Bank Marketing Dataset**. The dataset contains customer-related information and campaign data used for marketing the bank's term deposits.
-
-
-The provided paper, *"Modelling bank customer behaviour using feature engineering and classification techniques"* by Abedin et al., focuses on advanced methods for analyzing bank customer behavior using feature engineering and machine learning techniques. 
+### KTU S5 DATA ANALYTICS LAB MICRO PROJECT  
+**Machine Learning Model Comparison for Bank Marketing Dataset**
 
 ---
 
-### Academic Background and Relevance
+## Project Overview  
+This project evaluates and compares the performance of several machine learning models in predicting whether customers will subscribe to a term deposit using the **Bank Marketing Dataset**. The dataset includes customer-related information and marketing campaign data, and the models are evaluated for their predictive accuracy, including advanced metrics such as Matthews Correlation Coefficient (MCC) and ROC-AUC scores.
 
-This project is inspired by research that highlights the importance of **feature engineering** and **machine learning** models in predicting bank customer behavior. Recent studies (such as Abedin et al., 2023) demonstrate that feature transformation and selection are crucial for improving model performance, especially in the financial sector.
-
-**Key Insights from Related Research:**
-- **Feature Engineering**: The paper emphasizes transforming raw data into meaningful features to boost model accuracy. Common techniques include Min-Max normalization and Chi-Square feature selection, both of which are applied in this project.
-- **Machine Learning Models**: Several classification algorithms such as Random Forest, Gradient Boosting, and Support Vector Machine (SVM) have been shown to effectively predict customer behaviors like churn or product subscription. This project evaluates similar models using accuracy, MCC, and ROC-AUC scores, which are crucial for model comparison.
-
-### Key Similarities with the Paper:
-- **Data Preprocessing**: Similar to our approach, the research underscores the use of scaling (e.g., Min-Max) and categorical encoding techniques (e.g., One-Hot Encoding).
-- **Feature Selection**: The Chi-Square feature selection method used in our project is discussed as a significant pre-processing step in improving prediction accuracy, particularly for bank customer classification.
-- **Model Comparison**: The paper validates the effectiveness of ensemble methods like Random Forest and boosting algorithms. Our project evaluates Random Forest, Gradient Boosting, SVM, and k-NN, similar to the approaches discussed.
-
-**Source**: Abedin et al., "Modelling bank customer behaviour using feature engineering and classification techniques", *Research in International Business and Finance*, 2023【12†source】.
+We built an interactive frontend using **Streamlit**, allowing users to upload their dataset and visualize the model results through a user-friendly interface.
 
 ---
-### Key Steps:
+
+## Academic Background and Relevance  
+The project is inspired by research such as *"Modelling Bank Customer Behaviour Using Feature Engineering and Classification Techniques"* by Abedin et al. (2023), which emphasizes the importance of **feature engineering** and **machine learning** for predicting bank customer behaviors.
+
+### Key Insights from Related Research:
+- **Feature Engineering**: Transforming raw data into meaningful features is crucial for improving model accuracy. Techniques like **Min-Max normalization** and **Chi-Square feature selection** were both implemented in this project.
+- **Machine Learning Models**: Classification algorithms like **Random Forest**, **Gradient Boosting**, and **Support Vector Machine (SVM)** have been shown to be effective, and we applied these models to evaluate customer behavior predictions.
+
+---
+
+## Features
+- **Streamlit Web Interface**: Upload your own dataset and interactively train models.
+- **Real-Time Visualizations**: Confusion matrices, ROC curves, and classification reports are dynamically generated.
+- **Model Comparison**: Compare multiple machine learning models, including **Random Forest**, **Gradient Boosting**, **SVM**, and **k-NN**.
+
+---
+
+## Key Steps:
 1. **Data Preprocessing**:
    - Min-Max scaling applied to numerical features.
    - One-Hot Encoding used for categorical variables.
+
 2. **Feature Selection**:
-   - Chi-Square test applied to select the top 10 features for modeling.
+   - **Chi-Square** test applied to select the top 10 features for modeling.
+
 3. **Model Training and Evaluation**:
-   - Multiple models (Random Forest, Gradient Boosting, SVM, k-NN) are trained and evaluated using:
+   - Multiple models trained and evaluated using:
      - Accuracy
      - Matthews Correlation Coefficient (MCC)
      - Classification reports
      - Confusion matrices
      - ROC curves
 
-## Dataset
+---
 
-The dataset used for this project is a sample of the **Bank Marketing Dataset** with 2000 rows (`bank_sample_2000.csv`), including attributes like age, balance, duration, campaign, etc. The target variable (`y_yes`) indicates whether the customer subscribed to a term deposit (`yes` or `no`).
+## Dataset  
+The dataset used is a sample of the Bank Marketing Dataset with 2,000 rows (`bank_sample_2000.csv`). It includes attributes like age, balance, duration, campaign, and more. The target variable (`y_yes`) indicates whether the customer subscribed to a term deposit (yes or no).
 
 ### Features:
-- **Numerical Features**:
-  - `age`, `balance`, `day`, `duration`, `campaign`, `pdays`, `previous`
-- **Categorical Features**:
-  - `job`, `marital`, `education`, `default`, `housing`, `loan`, `contact`, `month`, `poutcome`, `y`
+- **Numerical**: age, balance, day, duration, campaign, pdays, previous
+- **Categorical**: job, marital, education, default, housing, loan, contact, month, poutcome, y
+
+---
 
 ## Models Evaluated
-
-The following models were trained and evaluated:
-
 - **Random Forest**
 - **Gradient Boosting**
 - **Support Vector Machine (SVM)**
 - **k-Nearest Neighbors (k-NN)**
 
+---
+
 ## Performance Metrics
-
-We evaluated the models using several key performance metrics:
-
 - **Accuracy**: The overall effectiveness of the model at correctly predicting the target.
-- **Matthews Correlation Coefficient (MCC)**: A more balanced measure of classification quality, especially for imbalanced datasets.
+- **Matthews Correlation Coefficient (MCC)**: A balanced measure of classification quality, especially for imbalanced datasets.
 - **Classification Report**: Provides precision, recall, and F1-score.
 - **Confusion Matrix**: Visualizes true positives, true negatives, false positives, and false negatives.
 - **ROC Curve**: Shows the trade-off between the true positive rate and false positive rate.
 
-## Results
+---
 
+## Streamlit App  
+We built an interactive **Streamlit** web app that allows users to:
+- Upload their own CSV dataset.
+- View the dataset and preprocess it.
+- Select individual models to train and evaluate.
+- View **confusion matrices**, **classification reports**, and **ROC curves** for each model.
+- Automatically compare models and display the best-performing model.
 
+### Demo  
+Check out the [live demo](https://data-analytics-microproject-x5juxtrpdwaavzukqykess.streamlit.app/)).
 
 ---
+
 ## Installation and Usage
 
-### Prerequisites
-
-- Python 3.x
-- Required libraries: `pandas`, `numpy`, `sklearn`, `matplotlib`, `seaborn`
+### Prerequisites:
+- **Python 3.x**
+- Required libraries: `pandas`, `numpy`, `sklearn`, `matplotlib`, `seaborn`, `streamlit`
 
 You can install the necessary libraries using:
-
 ```bash
-pip install pandas numpy scikit-learn matplotlib seaborn
+pip install pandas numpy scikit-learn matplotlib seaborn streamlit
 ```
 
 ### Running the Project
 
-1. Clone the repository:
-    ```bash
-    git clone https://github.com/your_username/bank-marketing-ml-comparison.git
-    cd bank-marketing-ml-comparison
-    ```
+Clone the repository:
+```bash
+git clone https://github.com/RAHULKRISHNAKR/Bank-Customer-Behaviour.git
+cd Bank-Customer-Behaviour
+```
 
-2. Make sure the dataset (`bank_sample_2000.csv`) is in the root directory.
+Make sure the dataset (`bank_sample_2000.csv`) is in the root directory.
 
-3. Run the Python script:
-    ```bash
-    python bank_marketing_ml.py
-    ```
-
-The script will load the dataset, preprocess the data, perform feature selection, train the models, and display the results including accuracy, MCC, classification reports, confusion matrices, and ROC curves.
-
-## Output Examples
-
-### Confusion Matrix (Random Forest)
-
-![Confusion Matrix for Random Forest](images/random_forest_confusion_matrix.png)
-
-### ROC Curve Comparison
-
-![ROC Curve Comparison](images/roc_curve_comparison.png)
-
-## Conclusion
-
-- Gradient Boosting and k-NN models showed the best balance between accuracy and MCC, with Gradient Boosting slightly outperforming k-NN in most cases.
-- Random Forest and SVM performed well, but their prediction ability for the minority class was relatively weaker.
-
-## Contact
-
-If you have any questions or suggestions, feel free to open an issue or contact me via email at [rahulkridhna@gmail.com](mailto:rahulkridhna.gmail.com).
+Run the Streamlit app:
+```bash
+streamlit run app.py
+```
 
 ---
+
+## Output Examples
+- **Confusion Matrix (Random Forest)**: ![Confusion Matrix](confusion_matrix_example.png)
+- **ROC Curve Comparison**: ![ROC Curve](roc_curve_example.png)
+
+---
+
+## Conclusion
+- **Gradient Boosting** and **k-NN** showed the best balance between accuracy and MCC, with Gradient Boosting slightly outperforming k-NN.
+- **Random Forest** and **SVM** performed well but had relatively weaker prediction ability for the minority class.
+
+---
+
+## Contact  
+If you have any questions or suggestions, feel free to open an issue or contact me via email at **rahulkridhna@gmail.com**.
