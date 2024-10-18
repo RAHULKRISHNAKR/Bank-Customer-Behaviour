@@ -7,6 +7,10 @@ from sklearn.feature_selection import SelectKBest, chi2
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 from sklearn.svm import SVC
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.naive_bayes import GaussianNB
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import (
     accuracy_score, confusion_matrix, classification_report,
     roc_auc_score, roc_curve, matthews_corrcoef
@@ -74,7 +78,11 @@ if uploaded_file is not None:
         "Random Forest": RandomForestClassifier(n_estimators=100, random_state=42),
         "Gradient Boosting": GradientBoostingClassifier(random_state=42),
         "SVM": SVC(probability=True, random_state=42),
-        "k-NN": KNeighborsClassifier(n_neighbors=5)
+        "k-NN": KNeighborsClassifier(n_neighbors=5),
+        "Naive Bayes": GaussianNB(),
+        "Decision Tree": DecisionTreeClassifier(random_state=42),
+        "Logistic Regression": LogisticRegression(max_iter=1000, random_state=42),
+        "MLP": MLPClassifier(hidden_layer_sizes=(100,), max_iter=1000, random_state=42)
     }
 
     # Dropdown to select individual model
@@ -123,58 +131,70 @@ if uploaded_file is not None:
         st.pyplot(fig)
 
     # Train and Evaluate All Models
-    if st.button("🚀 Train and Evaluate All Models"):
-        # Create layout for displaying models' results
-        cols = st.columns(2)
-        results = {}
+if st.button("🚀 Train and Evaluate All Models"):
+    # Create layout for displaying models' results
+    cols = st.columns(2)
+    results = {}
+    
+    for i, (name, model) in enumerate(models.items()):
+        # Train the model
+        model.fit(X_train, y_train)
 
-        for i, (name, model) in enumerate(models.items()):
-            # Train the model
-            model.fit(X_train, y_train)
+        # Predictions
+        y_pred = model.predict(X_test)
 
-            # Predictions
-            y_pred = model.predict(X_test)
+        # Metrics
+        accuracy = accuracy_score(y_test, y_pred)
+        mcc = matthews_corrcoef(y_test, y_pred)
+        results[name] = (accuracy, mcc)
 
-            # Metrics
-            accuracy = accuracy_score(y_test, y_pred)
-            mcc = matthews_corrcoef(y_test, y_pred)
-            results[name] = accuracy
+        with cols[i % 2]:  # Display in columns
+            st.markdown(f"### {name}")
+            st.write(f"✅ **Accuracy:** {accuracy * 100:.2f}%")
+            st.write(f"📏 **MCC:** {mcc:.2f}")
 
-            with cols[i % 2]:  # Display in columns
-                st.markdown(f"### {name}")
-                st.write(f"✅ **Accuracy:** {accuracy * 100:.2f}%")
-                st.write(f"📏 **MCC:** {mcc:.2f}")
+            # Classification Report
+            st.text("📝 **Classification Report:**")
+            st.text(classification_report(y_test, y_pred))
 
-                # Classification Report
-                st.text("📝 **Classification Report:**")
-                st.text(classification_report(y_test, y_pred))
+            # Confusion Matrix
+            cm = confusion_matrix(y_test, y_pred)
+            fig, ax = plt.subplots()
+            sns.heatmap(cm, annot=True, fmt='d', cmap='Purples', cbar=False, ax=ax)
+            ax.set_xlabel('Predicted Label')
+            ax.set_ylabel('True Label')
+            ax.set_title(f'Confusion Matrix for {name}')
+            st.pyplot(fig)
 
-                # Confusion Matrix
-                cm = confusion_matrix(y_test, y_pred)
-                fig, ax = plt.subplots()
-                sns.heatmap(cm, annot=True, fmt='d', cmap='Purples', cbar=False, ax=ax)
-                ax.set_xlabel('Predicted Label')
-                ax.set_ylabel('True Label')
-                ax.set_title(f'Confusion Matrix for {name}')
-                st.pyplot(fig)
+            # ROC Curve
+            y_probs = model.predict_proba(X_test)[:, 1]
+            fpr, tpr, _ = roc_curve(y_test, y_probs)
 
-                # ROC Curve
-                y_probs = model.predict_proba(X_test)[:, 1]
-                fpr, tpr, _ = roc_curve(y_test, y_probs)
+            fig, ax = plt.subplots()
+            ax.plot(fpr, tpr, label=f"{name} (AUC = {roc_auc_score(y_test, y_probs):.2f})")
+            ax.plot([0, 1], [0, 1], 'k--')  # Random Guess Line
+            ax.set_xlabel('False Positive Rate')
+            ax.set_ylabel('True Positive Rate')
+            ax.set_title('ROC Curve')
+            ax.legend(loc='best')
+            st.pyplot(fig)
 
-                fig, ax = plt.subplots()
-                ax.plot(fpr, tpr, label=f"{name} (AUC = {roc_auc_score(y_test, y_probs):.2f})")
-                ax.plot([0, 1], [0, 1], 'k--')  # Random Guess Line
-                ax.set_xlabel('False Positive Rate')
-                ax.set_ylabel('True Positive Rate')
-                ax.set_title('ROC Curve')
-                ax.legend(loc='best')
-                st.pyplot(fig)
+    # Determine the best model based on accuracy, and use MCC as a tiebreaker
+    best_model_name = None
+    best_accuracy = 0
+    best_mcc = -1  # Lower bound for MCC
 
-        # Determine the best model based on accuracy
-        best_model_name = max(results, key=results.get)
-        best_accuracy = results[best_model_name]
+    for model_name, (accuracy, mcc) in results.items():
+        # If accuracy is higher, update the best model
+        if accuracy > best_accuracy:
+            best_accuracy = accuracy
+            best_mcc = mcc
+            best_model_name = model_name
+        # If accuracy is the same but MCC is higher, update the best model
+        elif accuracy == best_accuracy and mcc > best_mcc:
+            best_mcc = mcc
+            best_model_name = model_name
 
-        # Display best model message
-        st.markdown(f"## 🏆 The best model is **{best_model_name}** with an accuracy of **{best_accuracy * 100:.2f}%**!")
-        st.write(f"### Reason: {best_model_name} achieved the highest accuracy compared to other models, making it the most effective for this dataset.")
+    # Display best model message
+    st.markdown(f"## 🏆 The best model is **{best_model_name}** with an accuracy of **{best_accuracy * 100:.2f}%**!")
+    st.write(f"### Reason: {best_model_name} achieved the highest accuracy or, in case of a tie, the highest MCC.")
