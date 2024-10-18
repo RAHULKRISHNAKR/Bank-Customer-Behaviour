@@ -9,7 +9,7 @@
 This project aims to evaluate and compare the performance of several machine learning models in predicting whether customers will subscribe to a term deposit based on the **Bank Marketing Dataset**. The dataset contains customer-related information and campaign data used for marketing the bank's term deposits.
 
 
-The provided paper, *"Modelling bank customer behaviour using feature engineering and classification techniques"* by Abedin et al., focuses on advanced methods for analyzing bank customer behavior using feature engineering and machine learning techniques. Below are key takeaways that can be added to the README file of your project, which align with your work:
+The provided paper, *"Modelling bank customer behaviour using feature engineering and classification techniques"* by Abedin et al., focuses on advanced methods for analyzing bank customer behavior using feature engineering and machine learning techniques. 
 
 ---
 
